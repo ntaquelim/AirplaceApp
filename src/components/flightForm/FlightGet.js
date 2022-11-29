@@ -15,22 +15,23 @@ export default function FlightGet(){
     const data = localStorage.getItem("date");
     
     const [FlightList, setFlightList] = useState([]);
-
+    const initialData ={
+        origin: 0,
+        destination: 4,
+        date: data
+      }
 
     useEffect(() => {
         (async function call() {
           try {
             
-            const response = await fetch('http://localhost:8081/getFilteredFlight', {
-              method: 'GET',
+            const response = await fetch('http://localhost:8081/flight/getFilteredFlight', {
+              method: 'POST',
+              mode: 'cors',
               headers: {
                 'Content-Type': 'application/json',
               },
-              body: {
-                origin: origin,
-                destination: destination,
-                date: data
-              }
+              body:JSON.stringify(initialData) 
             });
             const flights = await response.json();
             setFlightList(flights);
@@ -41,7 +42,7 @@ export default function FlightGet(){
       }, []);
 
       const handleClick = event => {
-        idNumber = parseInt(event.currentTarget.id);
+        let idNumber = parseInt(event.currentTarget.id);
         FlightList.forEach(element => {
           if(element.id == idNumber){
               localStorage.setItem("id", element.id);
@@ -57,7 +58,7 @@ export default function FlightGet(){
     return(
         <>
     {FlightList.map((flight) => (
-    <div id={flight.id} onClick={handleClick}>
+    <div id={flight.id} onClick={handleClick} key={flight.id}>
        {flight.origin}  - {flight.destination} on {flight.date} from the Company {flight.companyName}- Costs {flight.basePrice}€
     </div>))}
     </>
