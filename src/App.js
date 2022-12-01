@@ -18,13 +18,13 @@ function App() {
     <Routes>
       {/* Change to the component you are developing */}
       
-      <Route path="/" element={<Home />} /> 
-      <Route path="Flights" element={<Flights />} />
-      <Route path="Passengers" element={<Passengers />} />
+      <Route path="/" element={<Home/>} /> 
+      <Route path="Flights" element={<Flights/>} />
+      <Route path="Passengers" element={<Passengers/>} />
       {/*<Route path="Seats" element={<Seats/>} />
        <Route path="personal" element={} /> */}
-      <Route path="Loading" element={<Booking/>} />
-      <Route path="Confirmation" element={<Confirmation />} />
+      <Route path="Booking" element={<Booking />} />
+      <Route path="Confirmation" element={<Confirmation/>} />
 
     </Routes>
   </BrowserRouter>

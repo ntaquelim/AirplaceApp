@@ -1,24 +1,21 @@
 import { useEffect,useState } from "react";
-import { Navigate } from "react-router-dom";
-
 import {useNavigate} from 'react-router-dom';
+import './FlightGet.css';
 
 let FlightList = [];
-
-let flightSelected={};
 
 export default function FlightGet(){
 
     const navigate = useNavigate();
     const origin = localStorage.getItem("origin");
     const destination = localStorage.getItem("destination");
-    const data = localStorage.getItem("date");
+    const date = localStorage.getItem("originalDate");
     
     const [FlightList, setFlightList] = useState([]);
     const initialData ={
-        origin: 0,
-        destination: 4,
-        date: data
+        origin: origin,
+        destination: destination,
+        date: date
       }
 
     useEffect(() => {
@@ -42,13 +39,13 @@ export default function FlightGet(){
       }, []);
 
       const handleClick = event => {
-        let idNumber = parseInt(event.currentTarget.id);
+        let idNumber = event.currentTarget.id;
         FlightList.forEach(element => {
-          if(element.id == idNumber){
-              localStorage.setItem("id", element.id);
-              localStorage.setItem("date", element.data);
-              localStorage.setItem("company", element.companyName);              
-              localStorage.setItem("basePrice", element.basePrice);
+          if(element.flightId == idNumber){
+            localStorage.setItem("flightId", element.flightId);
+            localStorage.setItem("date", element.date);
+            localStorage.setItem("company", element.companyName);              
+            localStorage.setItem("basePrice", element.basePrice);
             }
             navigate('/Passengers');
         });
@@ -58,8 +55,9 @@ export default function FlightGet(){
     return(
         <>
     {FlightList.map((flight) => (
-    <div id={flight.id} onClick={handleClick} key={flight.id}>
-       {flight.origin}  - {flight.destination} on {flight.date} from the Company {flight.companyName}- Costs {flight.basePrice}€
+      <div id={flight.flightId} onClick={handleClick} key={flight.flightId} className="resultsDiv">
+        {flight.origin}  - {flight.destination} on {flight.date[0]}-{flight.date[1]}-{flight.date[2]} from the Company {flight.companyName}- Costs {flight.basePrice}€
+      <p>Flight nº {flight.flightId}</p>
     </div>))}
     </>
     );

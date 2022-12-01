@@ -1,3 +1,16 @@
+import PassengerForm from "../passengerForm/PassengerForm";
+import Header from "../header/Header";
+
+
+
 export default function Passengers(){
-    return;
+    
+      
+
+    return(
+        <div>
+        <Header />
+        <PassengerForm />
+       </div>
+    );
 }
